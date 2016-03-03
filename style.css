@@ -9,3 +9,7 @@ canvas {
   -webkit-filter: url('#goo');
   opacity: .6;
 }
+
+.columns {
+  margin-right: 0;
+}
