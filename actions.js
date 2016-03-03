@@ -1,5 +1,4 @@
 const clientId = "ed71764c7b01828286e701366fa84cd1"
-import SC from 'soundcloud'
 
 function setPlaying(playing) {
   return {
@@ -12,7 +11,7 @@ export function setUrl(url) {
   return async (dispatch, getState) => {
     SC.initialize({ client_id: clientId });
     try {
-      var sound = await SC.get('/resolve', {url});
+      var sound = await SC.resolve(url);
     } catch (e) {
       return;
     }
