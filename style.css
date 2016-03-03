@@ -4,11 +4,6 @@ html, body {
     width: 100%;
 }
 
-canvas {
-  filter: url('#goo');
-  -webkit-filter: url('#goo');
-  opacity: .6;
-}
 
 .columns {
   margin-right: 0;

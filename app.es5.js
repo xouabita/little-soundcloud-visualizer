@@ -3713,6 +3713,8 @@
 
 	'use strict';
 
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	__webpack_require__(115);
 
 	var _store = __webpack_require__(114);
@@ -3809,16 +3811,57 @@
 	    var fbc_array = new Uint8Array(analyser.frequencyBinCount);
 	    analyser.getByteFrequencyData(fbc_array);
 	    canvasCtx.clearRect(0, 0, viz.width, viz.height);
-	    canvasCtx.fillStyle = 'rgb(255, 255, 255)';
 
-	    var barWidth = 15;
+	    var barWidth = 20;
 	    var barCount = viz.width / barWidth;
-	    for (var i = 0; i < barCount; i++) {
-	      var x = barWidth * i;
-	      var height = -(viz.height * fbc_array[(i + 10) * 2] / 300);
 
-	      canvasCtx.fillRect(x, viz.height, barWidth, height);
+	    function getPoints(i) {
+	      var x = barWidth * i;
+	      var y = viz.height - viz.height * fbc_array[(i + barWidth) * 2] / 300;
+	      return [x, y];
 	    }
+
+	    var _getPoints = getPoints(0);
+
+	    var _getPoints2 = _slicedToArray(_getPoints, 2);
+
+	    var x0 = _getPoints2[0];
+	    var y0 = _getPoints2[1];
+
+	    canvasCtx.beginPath();
+	    canvasCtx.moveTo(x0, y0);
+
+	    // Style
+	    canvasCtx.lineWidth = 3;
+	    canvasCtx.strokeStyle = 'rgba(255, 255, 255, .5)';
+	    canvasCtx.fillStyle = 'rgba(255, 255, 255, .2)';
+
+	    // Draw the bezier curve
+	    for (var i = 1; i < barCount + 2; i++) {
+	      var _getPoints3 = getPoints(i);
+
+	      var _getPoints4 = _slicedToArray(_getPoints3, 2);
+
+	      var x = _getPoints4[0];
+	      var y = _getPoints4[1];
+
+	      var _getPoints5 = getPoints(i + 1);
+
+	      var _getPoints6 = _slicedToArray(_getPoints5, 2);
+
+	      var nextX = _getPoints6[0];
+	      var nextY = _getPoints6[1];
+
+
+	      var xc = (x + nextX) / 2;
+	      var yc = (y + nextY) / 2;
+
+	      canvasCtx.quadraticCurveTo(x, y, xc, yc);
+	    }
+	    canvasCtx.lineTo(viz.width, viz.height);
+	    canvasCtx.lineTo(0, viz.height);
+	    canvasCtx.stroke();
+	    canvasCtx.fill();
 	    requestAnimationFrame(loop);
 	  }
 

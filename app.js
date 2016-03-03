@@ -83,16 +83,39 @@ window.onload = function UI() {
     var fbc_array = new Uint8Array(analyser.frequencyBinCount);
     analyser.getByteFrequencyData(fbc_array);
     canvasCtx.clearRect(0, 0, viz.width, viz.height);
-    canvasCtx.fillStyle = 'rgb(255, 255, 255)';
 
-    var barWidth = 15;
+    var barWidth = 20;
     var barCount = viz.width / barWidth;
-    for (var i = 0; i < barCount; i++) {
-      var x = barWidth * i;
-      var height = - (viz.height * fbc_array[(i + 10) * 2] / 300);
 
-      canvasCtx.fillRect(x, viz.height, barWidth, height);
+    function getPoints(i) {
+      var x = barWidth * i;
+      var y = viz.height - viz.height * fbc_array[(i + barWidth) * 2] / 300;
+      return [x, y];
     }
+
+    var [x0, y0] = getPoints(0);
+    canvasCtx.beginPath();
+    canvasCtx.moveTo(x0, y0);
+
+    // Style
+    canvasCtx.lineWidth = 3;
+    canvasCtx.strokeStyle = 'rgba(255, 255, 255, .5)';
+    canvasCtx.fillStyle = 'rgba(255, 255, 255, .2)';
+
+    // Draw the bezier curve
+    for (var i = 1; i < barCount + 2; i++) {
+      var [x, y]         = getPoints(i);
+      var [nextX, nextY] = getPoints(i + 1);
+
+      var xc = (x + nextX) / 2;
+      var yc = (y + nextY) / 2;
+
+      canvasCtx.quadraticCurveTo(x, y, xc, yc);
+    }
+    canvasCtx.lineTo(viz.width, viz.height);
+    canvasCtx.lineTo(0, viz.height);
+    canvasCtx.stroke();
+    canvasCtx.fill();
     requestAnimationFrame(loop);
   }
 
