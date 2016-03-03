@@ -3730,6 +3730,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var AudioContext = window.AudioContext || window.webkitAudioContext;
+
 	function setupPlayer() {
 	  var player = document.getElementById('player');
 	  player.style.zIndex = 10;

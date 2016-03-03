@@ -3,6 +3,8 @@ import 'babel-polyfill'
 import store from './store'
 import {play, setPlaying, pause, setUrl} from './actions'
 
+var AudioContext = window.AudioContext || window.webkitAudioContext
+
 function setupPlayer() {
   var player = document.getElementById('player');
   player.style.zIndex = 10;
