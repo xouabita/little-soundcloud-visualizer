@@ -3730,8 +3730,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function updatePlayer() {
+	function setupPlayer() {
 	  var player = document.getElementById('player');
+	  player.style.zIndex = 10;
 	  var oldUrl = null;
 
 	  // Update the view from store
@@ -3765,9 +3766,25 @@
 	  };
 	}
 
+	function setupViz() {
+	  var viz = document.getElementById('viz');
+	  viz.style.position = 'fixed';
+	  viz.style.top = 0;
+	  viz.style.left = 0;
+
+	  function resizeViz() {
+	    viz.height = window.innerHeight;
+	    viz.width = window.innerWidth;
+	  }
+
+	  window.addEventListener('resize', resizeViz, false);
+	  resizeViz();
+
+	  return viz;
+	}
+
 	window.onload = function UI() {
 	  _store2.default.dispatch((0, _actions.setUrl)('https://soundcloud.com/else-official/else-mirage'));
-	  updatePlayer();
 
 	  var loadUrl = document.getElementById('load-url');
 	  var url = document.getElementById('url');
@@ -3775,6 +3792,9 @@
 	    _store2.default.dispatch((0, _actions.setUrl)(url.value));
 	    url.value = "";
 	  };
+
+	  setupPlayer();
+	  var viz = setupViz();
 	};
 
 /***/ },
