@@ -1,7 +1,15 @@
 import 'babel-polyfill'
+import 'soundcloud'
 
 import store from './store'
 import {play, setPlaying, pause, setUrl} from './actions'
+
+// Fix soundcloud on Firefox
+if (navigator.userAgent.indexOf("Firefox") != -1) {
+  var script = document.createElement('script');
+  script.src = 'https://connect.soundcloud.com/sdk/sdk-3.0.0.js';
+  document.body.appendChild(script);
+}
 
 var AudioContext = window.AudioContext || window.webkitAudioContext
 
