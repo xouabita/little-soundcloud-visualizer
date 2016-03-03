@@ -2,3 +2,9 @@ html, body {
     overflow-y:hidden;
     height:100%;
 }
+
+canvas {
+  filter: url('#goo');
+  -webkit-filter: url('#goo');
+  opacity: .6;
+}

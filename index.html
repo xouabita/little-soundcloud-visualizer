@@ -22,5 +22,15 @@
     <script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
     <script src="app.es5.js"></script>
     <canvas id="viz"></canvas>
+
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800">
+      <defs>
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+          <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 60 -10" result="goo"></feColorMatrix>
+          <feComposite in="SourceGraphic" in2="goo" operator="atop"></feComposite>
+        </filter>
+      </defs>
+    </svg>
   </body>
 </html>

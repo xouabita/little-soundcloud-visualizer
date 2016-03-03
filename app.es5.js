@@ -3809,15 +3809,15 @@
 	    var fbc_array = new Uint8Array(analyser.frequencyBinCount);
 	    analyser.getByteFrequencyData(fbc_array);
 	    canvasCtx.clearRect(0, 0, viz.width, viz.height);
-	    canvasCtx.fillStyle = 'rgba(255, 255, 255, .7)';
+	    canvasCtx.fillStyle = 'rgb(255, 255, 255)';
 
-	    var barCount = window.innerWidth / 10;
+	    var barWidth = 15;
+	    var barCount = viz.width / barWidth;
 	    for (var i = 0; i < barCount; i++) {
-	      var x = 10 * i;
-	      var width = 10;
-	      var height = -(viz.height * fbc_array[i] / 270);
+	      var x = barWidth * i;
+	      var height = -(viz.height * fbc_array[(i + 10) * 2] / 300);
 
-	      canvasCtx.fillRect(x, viz.height, width, height);
+	      canvasCtx.fillRect(x, viz.height, barWidth, height);
 	    }
 	    requestAnimationFrame(loop);
 	  }
