@@ -1,3 +1,8 @@
-# little-soundcloud-visualizer
+<p align="center"><h1>Little Soundcloud Visualizer</h1></p>
 
-A little soundcloud visualizer to play with canvas
+A little sound visualizer for soundcloud to play with canvas.
+
+---
+
+### Screenshot
+
